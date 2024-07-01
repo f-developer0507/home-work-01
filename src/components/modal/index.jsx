@@ -1,3 +1,3 @@
 import SignUpModal from './sign-up-modal'
-
-export {SignUpModal}
+import Service from './service'
+export {SignUpModal, Service}

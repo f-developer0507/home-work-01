@@ -8,7 +8,7 @@ import TextField from '@mui/material/TextField';
 import { useSpring, animated } from '@react-spring/web';
 import { forwardRef, cloneElement, useState } from 'react';
 import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router-dom';
+import { auth } from '@service';
 
 const Fade = forwardRef(function Fade(props, ref) {
   const {
@@ -65,10 +65,18 @@ const style = {
 
 export default function Index({open, handleClose}) {
   const [code, setCode] = useState("")
-  const navigate = useNavigate()
-  const handleSubmit =(e)=>{
+  const handleSubmit =async(e)=>{
     e.preventDefault()
-    navigate("/")
+    let payload = {
+      code,
+      email: localStorage.getItem("email")
+    }
+    try{
+      const response = await auth.sign_verify(payload)
+      console.log(response);
+    }catch(error){
+      console.log(error);
+    }
   }
 
   return (
@@ -91,7 +99,7 @@ export default function Index({open, handleClose}) {
             <Typography id="spring-modal-title" variant="h5" sx={{marginY:"20px", textAlign:"center"}} component="h2">
               Enter Verification Code
             </Typography>
-            <form onClick={handleSubmit} className="flex flex-col gap-5">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
             <TextField  type="text" onChange={(e)=>setCode(e.target.value)} id="code" label="Code" fullWidth />
             <Button fullWidth type="submit" variant="contained">Sign-up</Button>
             </form>

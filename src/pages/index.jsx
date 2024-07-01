@@ -1,3 +1,7 @@
 import SignUp from './sign-up'
 import SignIn from './sign-in'
-export { SignUp, SignIn}
+import Main from './main'
+import Dashboard from './dashboard'
+import Order from './order'
+import Services from './services'
+export { SignUp, SignIn, Main , Dashboard, Order, Services}
